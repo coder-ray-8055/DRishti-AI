@@ -1,0 +1,11 @@
+Classification Report for Best Model: MobileNetV3 (CNN)
+Generated at: 2026-11-09 23:09:42
+
+                          precision    recall  f1-score   support
+
+             Healthy (0)     0.9597    0.9668    0.9632       271
+Diabetic Retinopathy (1)     0.9675    0.9606    0.9640       279
+
+                accuracy                         0.9636       550
+               macro avg     0.9636    0.9637    0.9636       550
+            weighted avg     0.9637    0.9636    0.9636       550

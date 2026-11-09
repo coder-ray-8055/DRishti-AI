@@ -1,0 +1,105 @@
+================================================================================
+DIABETIC RETINOPATHY DETECTION: AUTOMATED MACHINE LEARNING PIPELINE
+Timestamp: 2026-11-09 23:02:20
+Random Seed: 42
+Results Directory: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results
+================================================================================
+============================================================
+1. DATASET EXPLORATION AND ANALYSIS
+============================================================
+Loaded train.csv with 3662 records.
+Missing values in CSV: {'id_code': 0, 'diagnosis': 0}
+Verifying image files integrity...
+Saved dataset summary to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\dataset_analysis\dataset_summary.json
+Saved class distribution visualization to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\dataset_analysis\class_distribution.png
+Saved representative sample images to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\dataset_analysis\sample_images.png
+
+Dataset Verification Completed: 3662 valid images verified.
+Class 0 (Healthy): 1805 images (49.29%)
+Class 1 (Diabetic Retinopathy): 1857 images (50.71%)
+
+============================================================
+2. DATASET SPLITTING (70% Train, 15% Val, 15% Test)
+============================================================
+Saved split dataset metadata to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\dataset_analysis\dataset_splits.csv
+Training Set   : 2562 images (69.96%) | Healthy: 1263 (49.3%) | DR: 1299 (50.7%)
+Validation Set :  550 images (15.02%) | Healthy:  271 (49.27%) | DR:  279 (50.73%)
+Testing Set    :  550 images (15.02%) | Healthy:  271 (49.27%) | DR:  279 (50.73%)
+
+============================================================
+3. FEATURE EXTRACTION FOR TRADITIONAL ML
+============================================================
+Training Set Features: Processing 2562 images with 8 worker threads...
+Extracted feature matrix: (2562, 76), labels: (2562,)
+Validation Set Features: Processing 550 images with 8 worker threads...
+Extracted feature matrix: (550, 76), labels: (550,)
+Test Set Features: Processing 550 images with 8 worker threads...
+Extracted feature matrix: (550, 76), labels: (550,)
+
+============================================================
+4. TRADITIONAL MACHINE LEARNING MODEL TRAINING & TUNING
+============================================================
+Training Logistic Regression...
+Logistic Regression Best Params: {'classifier__C': 10.0, 'classifier__solver': 'liblinear'}
+Validation F1: 0.9314, ROC-AUC: 0.9827, Recall: 0.9247
+Training Support Vector Machine (SVM)...
+SVM Best Params: {'classifier__C': 5.0, 'classifier__kernel': 'linear'}
+Validation F1: 0.9384, ROC-AUC: 0.9810, Recall: 0.9283
+Training Random Forest Classifier...
+Random Forest Best Params: {'classifier__max_depth': 20, 'classifier__min_samples_split': 2, 'classifier__n_estimators': 200}
+Validation F1: 0.9412, ROC-AUC: 0.9789, Recall: 0.9462
+
+============================================================
+5. DEEP LEARNING MODEL DEVELOPMENT (MobileNetV3 Transfer Learning)
+============================================================
+Computation Device: CPU
+Preloading 2562 images into RAM memory...
+Preloaded 2562 images into RAM cache.
+Preloading 550 images into RAM memory...
+Preloaded 550 images into RAM cache.
+Preloading 550 images into RAM memory...
+Preloaded 550 images into RAM cache.
+
+Training Deep Learning Model: MobileNetV3 on cpu...
+Epoch [01/05] (47.1s) - Train Loss: 0.2438, Train Acc: 0.9133 | Val Loss: 0.1446, Val Acc: 0.9582, Val Rec: 0.9749, Val F1: 0.9594
+Epoch [02/05] (54.3s) - Train Loss: 0.1223, Train Acc: 0.9575 | Val Loss: 0.1116, Val Acc: 0.9582, Val Rec: 0.9391, Val F1: 0.9580
+Epoch [03/05] (52.1s) - Train Loss: 0.1100, Train Acc: 0.9692 | Val Loss: 0.1036, Val Acc: 0.9673, Val Rec: 0.9498, Val F1: 0.9672
+Epoch [04/05] (45.9s) - Train Loss: 0.0893, Train Acc: 0.9672 | Val Loss: 0.0937, Val Acc: 0.9673, Val Rec: 0.9570, Val F1: 0.9674
+Epoch [05/05] (48.1s) - Train Loss: 0.0842, Train Acc: 0.9731 | Val Loss: 0.0915, Val Acc: 0.9709, Val Rec: 0.9606, Val F1: 0.9710
+Saved training loss graph to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\training\training_loss.png
+Saved training accuracy graph to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\training\training_accuracy.png
+
+============================================================
+6. FINAL MODEL EVALUATION ON UNSEEN INDEPENDENT TEST SET
+============================================================
+
+Model Performance Comparison on Test Set:
+
+                 Model  Accuracy  Precision  Recall (Sensitivity)  Specificity  F1-Score  ROC-AUC
+     MobileNetV3 (CNN)    0.9636     0.9675                0.9606       0.9668    0.9640   0.9946
+         Random Forest    0.9400     0.9457                0.9355       0.9446    0.9405   0.9785
+Support Vector Machine    0.9418     0.9395                0.9462       0.9373    0.9429   0.9775
+   Logistic Regression    0.9382     0.9329                0.9462       0.9299    0.9395   0.9771
+Saved confusion matrices to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\evaluation\confusion_matrix.png
+Saved ROC curves to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\evaluation\roc_curve.png
+Saved Precision-Recall curves to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\evaluation\precision_recall_curve.png
+
+============================================================
+7. CHAMPION MODEL SELECTION & ARTIFACT PRESERVATION
+============================================================
+
+Champion Model Selected: >>> MobileNetV3 (CNN) <<<
+Selection Rationale: Highest ROC-AUC (0.9946) and clinical Recall (0.9606) with balanced Specificity (0.9668).
+Saved classification report to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\evaluation\classification_report.txt
+Saved champion model to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\models\best_model.pth
+Saved model metadata to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\models\model_metadata.json
+
+============================================================
+8. GENERATING COMPREHENSIVE FINAL REPORTS (MD & PDF)
+============================================================
+Saved Markdown report to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\FINAL_PROJECT_REPORT.md
+Saved PDF report to: C:\Users\Rayyan\Desktop\code\web dev\Projects\dristiML\results\FINAL_PROJECT_REPORT.pdf
+
+================================================================================
+PIPELINE EXECUTION COMPLETED SUCCESSFULLY in 7.40 minutes.
+================================================================================

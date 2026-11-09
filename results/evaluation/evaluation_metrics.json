@@ -1,0 +1,58 @@
+{
+    "Logistic Regression": {
+        "accuracy": 0.9381818181818182,
+        "precision": 0.9328621908127208,
+        "recall": 0.946236559139785,
+        "specificity": 0.9298892988929889,
+        "f1_score": 0.9395017793594306,
+        "roc_auc": 0.9771125130606144,
+        "confusion_matrix": {
+            "tn": 252,
+            "fp": 19,
+            "fn": 15,
+            "tp": 264
+        }
+    },
+    "Support Vector Machine": {
+        "accuracy": 0.9418181818181818,
+        "precision": 0.9395017793594306,
+        "recall": 0.946236559139785,
+        "specificity": 0.9372693726937269,
+        "f1_score": 0.9428571428571428,
+        "roc_auc": 0.9774696134058114,
+        "confusion_matrix": {
+            "tn": 254,
+            "fp": 17,
+            "fn": 15,
+            "tp": 264
+        }
+    },
+    "Random Forest": {
+        "accuracy": 0.94,
+        "precision": 0.9456521739130435,
+        "recall": 0.9354838709677419,
+        "specificity": 0.9446494464944649,
+        "f1_score": 0.9405405405405406,
+        "roc_auc": 0.9785409144414025,
+        "confusion_matrix": {
+            "tn": 256,
+            "fp": 15,
+            "fn": 18,
+            "tp": 261
+        }
+    },
+    "MobileNetV3 (CNN)": {
+        "accuracy": 0.9636363636363636,
+        "precision": 0.9675090252707581,
+        "recall": 0.9605734767025089,
+        "specificity": 0.966789667896679,
+        "f1_score": 0.9640287769784173,
+        "roc_auc": 0.9946236559139785,
+        "confusion_matrix": {
+            "tn": 262,
+            "fp": 9,
+            "fn": 11,
+            "tp": 268
+        }
+    }
+}

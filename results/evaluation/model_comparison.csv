@@ -1,0 +1,5 @@
+Model,Accuracy,Precision,Recall (Sensitivity),Specificity,F1-Score,ROC-AUC
+MobileNetV3 (CNN),0.9636,0.9675,0.9606,0.9668,0.964,0.9946
+Random Forest,0.94,0.9457,0.9355,0.9446,0.9405,0.9785
+Support Vector Machine,0.9418,0.9395,0.9462,0.9373,0.9429,0.9775
+Logistic Regression,0.9382,0.9329,0.9462,0.9299,0.9395,0.9771

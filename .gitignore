@@ -1,0 +1,14 @@
+# Dataset
+train_images/
+test_images/
+train.csv
+test.csv
+sample_submission.csv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/

@@ -1,0 +1,50 @@
+{
+    "dataset_name": "APTOS 2019 Blindness Detection Retinal Fundus Dataset",
+    "total_images_in_csv": 3662,
+    "verified_valid_images": 3662,
+    "missing_images_count": 0,
+    "corrupted_images_count": 0,
+    "image_formats": {
+        "PNG": 3662
+    },
+    "sample_resolutions_w_h": [
+        [
+            474,
+            358
+        ],
+        [
+            2896,
+            1944
+        ],
+        [
+            3216,
+            2136
+        ],
+        [
+            2416,
+            1736
+        ],
+        [
+            2048,
+            1536
+        ]
+    ],
+    "total_distinct_resolutions": 17,
+    "target_classification": "Binary (0: Healthy, 1: Diabetic Retinopathy)",
+    "binary_class_distribution": {
+        "0_Healthy": 1805,
+        "1_Diabetic_Retinopathy": 1857
+    },
+    "binary_class_percentages": {
+        "0_Healthy": 49.29,
+        "1_Diabetic_Retinopathy": 50.71
+    },
+    "imbalance_ratio_healthy_to_dr": 0.972,
+    "original_aptos_5_class_distribution": {
+        "0 - No DR": 1805,
+        "1 - Mild": 370,
+        "2 - Moderate": 999,
+        "3 - Severe": 193,
+        "4 - Proliferative DR": 295
+    }
+}
