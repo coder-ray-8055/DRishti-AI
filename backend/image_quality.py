@@ -39,10 +39,14 @@ def assess_image_quality(image_bytes: bytes) -> dict:
     img_rgb = np.array(pil_img.convert("RGB"))
     height, width = img_rgb.shape[:2]
 
+    # Cast numpy ints to Python ints so FastAPI can JSON-encode them
+    width = int(width)
+    height = int(height)
+
     # 2. Check dimensions
     checks["width"] = width
     checks["height"] = height
-    checks["dimensions_ok"] = width >= 100 and height >= 100
+    checks["dimensions_ok"] = bool(width >= 100 and height >= 100)
     if not checks["dimensions_ok"]:
         reasons.append(
             f"Image dimensions too small ({width}x{height}), minimum is 100x100"
@@ -52,9 +56,9 @@ def assess_image_quality(image_bytes: bytes) -> dict:
     gray = cv2.cvtColor(img_rgb, cv2.COLOR_RGB2GRAY)
 
     # 3. Check blur using Laplacian variance
-    laplacian_var = cv2.Laplacian(gray, cv2.CV_64F).var()
-    checks["blur_score"] = round(float(laplacian_var), 2)
-    checks["blur_ok"] = laplacian_var >= 10.0
+    laplacian_var = float(cv2.Laplacian(gray, cv2.CV_64F).var())
+    checks["blur_score"] = round(laplacian_var, 2)
+    checks["blur_ok"] = bool(laplacian_var >= 10.0)
     if not checks["blur_ok"]:
         reasons.append(
             f"Image appears too blurry (Laplacian variance: {laplacian_var:.1f}, threshold: 10.0)"
@@ -63,7 +67,7 @@ def assess_image_quality(image_bytes: bytes) -> dict:
     # 4. Check brightness
     mean_brightness = float(gray.mean())
     checks["brightness"] = round(mean_brightness, 2)
-    checks["brightness_ok"] = 20.0 <= mean_brightness <= 240.0
+    checks["brightness_ok"] = bool(20.0 <= mean_brightness <= 240.0)
     if not checks["brightness_ok"]:
         if mean_brightness < 20.0:
             reasons.append(
@@ -77,7 +81,7 @@ def assess_image_quality(image_bytes: bytes) -> dict:
     # 5. Check contrast
     contrast = float(gray.std())
     checks["contrast"] = round(contrast, 2)
-    checks["contrast_ok"] = contrast >= 10.0
+    checks["contrast_ok"] = bool(contrast >= 10.0)
     if not checks["contrast_ok"]:
         reasons.append(
             f"Image has very low contrast (std: {contrast:.1f}, threshold: 10.0)"

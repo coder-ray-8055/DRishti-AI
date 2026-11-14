@@ -17,7 +17,6 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from src.models_cnn import get_cnn_model  # noqa: E402
 from src.preprocessing import enhance_fundus_ben_graham, get_cnn_transforms  # noqa: E402
 
 # ---------------------------------------------------------------------------
