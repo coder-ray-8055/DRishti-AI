@@ -29,9 +29,14 @@ from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse, JSONResponse
 
-from inference import is_model_loaded, load_model, predict
-from image_quality import assess_image_quality
-from screening_store import ScreeningStore
+try:
+    from backend.inference import is_model_loaded, load_model, predict
+    from backend.image_quality import assess_image_quality
+    from backend.screening_store import ScreeningStore
+except ImportError:
+    from inference import is_model_loaded, load_model, predict
+    from image_quality import assess_image_quality
+    from screening_store import ScreeningStore
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -174,7 +179,10 @@ async def analyze_screening(
         )
 
     # --- read & validate size ---
-    image_bytes = await image.read()
+    if hasattr(image, "file") and hasattr(image.file, "read"):
+        image_bytes = image.file.read()
+    else:
+        image_bytes = await image.read()
     if len(image_bytes) > MAX_FILE_SIZE:
         raise HTTPException(
             status_code=400,
@@ -228,8 +236,6 @@ async def analyze_screening(
         try:
             prediction = predict(image_bytes)
         except Exception as exc:
-            import traceback
-            traceback.print_exc()
             raise HTTPException(status_code=500, detail=f"Inference failed: {exc}")
 
         screening_id = str(uuid.uuid4())
@@ -260,8 +266,6 @@ async def analyze_screening(
     except HTTPException:
         raise
     except Exception as exc:
-        import traceback
-        traceback.print_exc()
         raise HTTPException(status_code=500, detail=f"Server error during analysis: {exc}")
     finally:
         if temp_file_path and os.path.exists(temp_file_path):
